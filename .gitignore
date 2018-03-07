@@ -53,5 +53,3 @@ target/**
 .svn
 *.jar
 **/classes/**
-**/WebContent/**
-**/META-INF/**
