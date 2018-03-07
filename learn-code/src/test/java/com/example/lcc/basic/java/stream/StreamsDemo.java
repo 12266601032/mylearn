@@ -1,5 +1,6 @@
 package com.example.lcc.basic.java.stream;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -7,9 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,7 +31,7 @@ public class StreamsDemo {
         map.put("f", BigDecimal.ONE);
 
         albumStream = Stream.of(
-                  new Album(new Artist("a1"), 1)
+                new Album(new Artist("a1"), 1)
                 , new Album(new Artist("a1"), 10)
                 , new Album(new Artist("a2"), 22)
                 , new Album(new Artist("a2"), 25)
@@ -40,6 +39,14 @@ public class StreamsDemo {
                 , new Album(new Artist("a3"), 131)
                 , new Album(new Artist("a3"), 80)
         );
+
+        words.add("foo");
+        words.add("oof");
+        words.add("fio");
+        words.add("foi");
+        words.add("fff");
+        words.add("foe");
+        words.add("feo");
     }
 
     private Map<String, BigDecimal> map = Maps.newHashMap();
@@ -76,28 +83,71 @@ public class StreamsDemo {
 
     }
 
+
+    private List<String> words = Lists.newArrayList();
+
+    @Test
+    public void groupingby() {
+        /**
+         * 1、根据使用同字符的单词进行分组
+         * word -> alphabetize(word) 是一个分类函数，用来获取单词不分大小写的正序排列
+         *
+         * 2、如果希望指定map中value的容器 可以指定一个下游的collector 比较简单的就是toSet()也可以直接toCollection然后提供一个
+         * 工厂函数。
+         *
+         * 3、下游collector给定一个counting() 可以返回一个key分分类 value为分类元素个数的map
+         *
+         * 4、指定一个map的工厂函数可以设定Map的实现类
+         *
+         */
+        Map<String, List<String>> collect1 = words.stream()
+                .collect(groupingBy(word -> alphabetize(word)));
+        Map<String, LinkedList<String>> collect2 = words.stream()
+                .collect(groupingBy(word -> alphabetize(word), toCollection(LinkedList::new)));
+        Map<String, Long> collect3 = words.stream()
+                .collect(groupingBy(word -> alphabetize(word), counting()));
+        TreeMap<String, Set<String>> collect4 = words.stream()
+                .collect(groupingBy(word -> alphabetize(word), TreeMap::new, toSet()));
+
+        System.out.println(collect1);
+        System.out.println(collect2);
+        System.out.println(collect3);
+        System.out.println(collect4);
+    }
+
+    private String alphabetize(String word) {
+        char[] chars = word.toLowerCase().toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
+    }
+
     //艺术家
     @ToString
     @EqualsAndHashCode
     private class Artist {
         private String name;
+
         public Artist(String name) {
             this.name = name;
         }
     }
+
     //专辑
     @ToString
     @EqualsAndHashCode
     private class Album {
         private Artist artist;
         private Integer sales;
+
         public Album(Artist artist, Integer sales) {
             this.artist = artist;
             this.sales = sales;
         }
+
         public Artist artist() {
             return this.artist;
         }
+
         public Integer sales() {
             return this.sales;
         }
