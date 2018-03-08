@@ -7,7 +7,9 @@ import lombok.ToString;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -113,6 +115,29 @@ public class StreamsDemo {
         System.out.println(collect2);
         System.out.println(collect3);
         System.out.println(collect4);
+    }
+
+    @Test
+    public void testSteamIterator() throws Exception {
+        Stream<Integer> integerStream = Stream.of(1, 2, 3);
+        /*for (Integer i : (Iterable<? extends Integer>) integerStream::iterator) {
+            System.out.println(i);
+        }*/
+        //stream::iterator 实际是一个Iterable的函数式对象
+        // ，这样可以直接参与foreach迭代，而不需要进行强转
+        //iterableOf属于一个适配方法
+        for (Integer i :
+                iterableOf(integerStream)) {
+            System.out.println(i);
+        }
+        try(Stream<String> s = Files.lines(Paths.get("test.properties"))){
+
+        }
+    }
+
+    // Adapter from Stream<E> to Iterable<E>
+    public static <E> Iterable<E> iterableOf(Stream<E> stream) {
+        return stream::iterator;
     }
 
     private String alphabetize(String word) {
