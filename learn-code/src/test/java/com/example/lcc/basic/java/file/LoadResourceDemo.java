@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -28,6 +29,8 @@ public class LoadResourceDemo {
             Properties p1 = new Properties();
             p1.load(is);
             System.out.println(p1.get("aa"));
+            HashMap<Object, Object> map = new HashMap<>(p1);
+            System.out.println(map.get("aa"));
 
         }
 
