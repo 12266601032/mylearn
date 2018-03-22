@@ -108,7 +108,7 @@ public class BuilderDemo {
         }
 
         /**
-         * The builder class.
+         * The builder clazz.
          */
         public static class Builder {
 

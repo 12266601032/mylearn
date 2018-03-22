@@ -85,7 +85,7 @@ public class SingletonDemo {
         }
         /**
          * 公共方法访问单例对象
-         * @return an instance of the class.
+         * @return an instance of the clazz.
          */
         public static ThreadSafeDoubleCheckLocking getInstance() {
             // local variable increases performance by 25 percent
