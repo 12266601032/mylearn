@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import java.util.Map;
 
 /**
- * Created by liucongcong on 2018/3/13.
  */
 public class StorageClient {
 

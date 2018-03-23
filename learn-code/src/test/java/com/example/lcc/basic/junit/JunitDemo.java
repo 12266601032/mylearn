@@ -7,7 +7,6 @@ import org.junit.rules.Timeout;
 import java.util.ArrayList;
 
 /**
- * @author liucongcong
  * @date 2018/3/20
  */
 public class JunitDemo extends ParentClass{

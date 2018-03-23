@@ -1,7 +1,6 @@
 package com.example.lcc.basic.java;
 
 /**
- * Created by liucongcong on 2018/2/11.
  */
 public class VolatileDemostrate {
 

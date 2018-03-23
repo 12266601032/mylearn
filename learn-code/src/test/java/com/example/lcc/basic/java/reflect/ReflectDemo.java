@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author liucongcong
  * @date 2018/3/22
  */
 public class ReflectDemo {
@@ -80,7 +79,6 @@ public class ReflectDemo {
         //泛型通配符
         Type type = WildcardTypeDemo.class.getMethod("createList").getGenericReturnType();
         System.out.printf("List<?>的泛型类型属于统配符：%b.%n", ((ParameterizedType) type).getActualTypeArguments()[0] instanceof WildcardType);
-
 
     }
 

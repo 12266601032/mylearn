@@ -7,7 +7,6 @@ import com.google.inject.Scopes;
 import com.google.inject.name.Names;
 
 /**
- * Created by liucongcong on 2018/3/13.
  */
 public class StorageModule implements Module {
 

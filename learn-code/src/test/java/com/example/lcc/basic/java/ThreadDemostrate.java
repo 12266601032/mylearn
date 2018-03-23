@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * Created by liucongcong on 2018/2/10.
  */
 public class ThreadDemostrate {
 

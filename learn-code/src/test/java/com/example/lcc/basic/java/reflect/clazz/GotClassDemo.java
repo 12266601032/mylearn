@@ -6,7 +6,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 
 /**
- * @author liucongcong
  * @date 2018/3/22
  */
 public class GotClassDemo {
@@ -24,7 +23,7 @@ public class GotClassDemo {
      *
      * 可以根据Class的泛型信息看的出，通过实例获取的class对象有可能是子类对象的所以使用的是Class<? extends GotClassDemo>
      * 通过类名.class获取的一定是当前类的class对象所以是Class<GotClassDemo>
-     * 通过string类型的全路径类名后去的class对象没有类型信息所有使用的是Class<?>
+     * 通过string类型的全路径类名取的class对象没有类型信息所有使用的是Class<?>
      *
      */
     @Test

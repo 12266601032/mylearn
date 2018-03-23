@@ -9,7 +9,8 @@ import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 /**
- * Created by liucongcong on 2018/3/9.
+ * from
+ * https://www.jianshu.com/p/12638513424f
  */
 public class FlowableDemo_4 {
 

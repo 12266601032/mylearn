@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Properties;
 
 /**
- * Created by liucongcong on 2018/3/7.
  */
 public class LoadResourceDemo {
 

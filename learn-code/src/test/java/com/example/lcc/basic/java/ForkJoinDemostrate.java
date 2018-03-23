@@ -10,7 +10,6 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by liucongcong on 2018/2/10.
  */
 @Slf4j
 public class ForkJoinDemostrate {

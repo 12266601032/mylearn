@@ -13,7 +13,6 @@ import java.util.Map;
 import static java.util.stream.Collectors.*;
 
 /**
- * Created by liucongcong on 2018/3/2.
  */
 public class MapJava8ApiDemo {
 

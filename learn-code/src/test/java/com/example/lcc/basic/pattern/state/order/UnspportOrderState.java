@@ -4,7 +4,6 @@ package com.example.lcc.basic.pattern.state.order;
 import com.example.lcc.basic.pattern.state.order.state.OrderStateContext;
 
 /**
- * Created by liucongcong on 2018/1/10.
  */
 public abstract class UnspportOrderState implements OrderSate{
 

@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 
 /**
- * @author liucongcong
  * @date 2018/3/20
  */
 public class ParentClass {

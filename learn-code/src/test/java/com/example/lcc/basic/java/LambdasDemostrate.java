@@ -10,7 +10,6 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 /**
- * Created by liucongcong on 2018/2/9.
  */
 public class LambdasDemostrate {
     @Test

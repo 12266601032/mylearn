@@ -9,7 +9,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Created by liucongcong on 2018/2/10.
  */
 public class LockDemostrate {
 

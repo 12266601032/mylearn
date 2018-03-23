@@ -19,7 +19,6 @@ import static java.util.function.BinaryOperator.maxBy;
 import static java.util.stream.Collectors.*;
 
 /**
- * Created by liucongcong on 2018/3/6.
  */
 public class StreamsDemo {
 

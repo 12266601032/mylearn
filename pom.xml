@@ -36,7 +36,7 @@
         <rabbitmq.version>3.6.5</rabbitmq.version>
         <lyra.version>0.5.2</lyra.version>
         <jedis.version>2.9.0</jedis.version>
-        <oss.version>2.0.2</oss.version>
+        <httpclient.version>4.5.5</httpclient.version>
 
         <local.version>${project.version}</local.version>
 
@@ -76,7 +76,11 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.alibaba</groupId>

@@ -7,7 +7,6 @@ import lombok.Data;
 import org.junit.Test;
 
 /**
- * Created by liucongcong on 2018/3/14.
  */
 public class ObjectDemo {
 

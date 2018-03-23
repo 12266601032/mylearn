@@ -6,7 +6,6 @@ import com.google.common.eventbus.Subscribe;
 import org.junit.Test;
 
 /**
- * Created by liucongcong on 2018/2/8.
  */
 public class EventBusDemostrate {
 
