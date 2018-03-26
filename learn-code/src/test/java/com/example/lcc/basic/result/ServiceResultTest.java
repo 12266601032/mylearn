@@ -2,10 +2,14 @@ package com.example.lcc.basic.result;
 
 import static org.junit.Assert.*;
 
+import com.example.lcc.basic.result.model.CodeMessage;
+import com.example.lcc.basic.result.model.ServiceResult;
 import com.sun.org.apache.bcel.internal.classfile.Code;
 import org.junit.Test;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @date 2018/3/23
@@ -73,13 +77,56 @@ public class ServiceResultTest {
         assertEquals(null, error1.getData());
         assertFalse(error1.isSuccess());
         assertEquals(EnumMessage.E404.message, error1.getCodeMessage().getMessage());
+
         ServiceResult<String, Long> error2 = ServiceResult.error(new ServiceResult.DefaultMessage<Long>(1000l, "error"));
         assertEquals(1000l, error2.getCodeMessage().getCode().longValue());
         assertEquals(null, error2.getData());
         assertFalse(error2.isSuccess());
         assertEquals("error", error2.getCodeMessage().getMessage());
 
+        ServiceResult<String, Integer> error3 = ServiceResult.error(EnumMessage.E500);
+        assertEquals(EnumMessage.E500.getCode(), error3.getCodeMessage().getCode());
+        assertEquals(null, error3.getData());
+        assertFalse(error3.isSuccess());
+        assertEquals(EnumMessage.E500.getMessage(), error3.getCodeMessage().getMessage());
     }
+
+    @Test
+    public void testServiceResult() {
+        ServiceResult<List<String>, String> s = ServiceResult.success(Arrays.asList("1", "2", "3"));
+        s.isSuccess(); //true
+        ServiceResult<?, Integer> e1 = ServiceResult.error(CodeMessageEnum.some_error);
+        e1.isSuccess(); //false
+        ServiceResult<?, Long> e2 = ServiceResult.error(new ServiceResult.DefaultMessage<>(1000L, "error"));
+        e2.isSuccess(); //false
+        System.out.println(s);
+        System.out.println(e1);
+        System.out.println(e2);
+
+    }
+
+
+    enum CodeMessageEnum implements CodeMessage<Integer> {
+        some_error(1001, "错误信息。");
+        Integer code;
+        String message;
+
+        CodeMessageEnum(Integer code, String message) {
+            this.code = code;
+            this.message = message;
+        }
+
+        @Override
+        public Integer getCode() {
+            return code;
+        }
+
+        @Override
+        public String getMessage() {
+            return message;
+        }
+    }
+
 
     private enum EnumMessage implements CodeMessage<Integer> {
         S000(200, "success"),

@@ -1,5 +1,6 @@
 package com.example.lcc.basic.java.serializable;
 
+import com.example.lcc.basic.result.model.ServiceResult;
 import lombok.Data;
 import org.junit.Test;
 
@@ -36,6 +37,7 @@ public class SerializableDemo {
         //写入单例对象
         objectOutputStream.writeObject(instance);
         objectOutputStream.writeObject(innerSingleInstance);
+        objectOutputStream.writeObject(ServiceResult.success("service"));
         objectOutputStream.close();
 
         Person.staticField = "修改了的静态变量";
@@ -50,10 +52,12 @@ public class SerializableDemo {
         System.out.printf("反序列化Person的结果：%s。静态变量值：%s。transient成员的值：%s。%n", o3, o3.staticField, o3.getTransientField());
         Object o4 = objectInputStream.readObject();
         Object o5 = objectInputStream.readObject();
+        Object o6 = objectInputStream.readObject();
         objectInputStream.close();
 
         System.out.printf("单例对象反序列化后是否为同一对象：%b.%n", o4 == instance);
         System.out.printf("单例对象反序列化后是否为同一对象：%b.%n", o5 == innerSingleInstance);
+        System.out.println(o6);
         /*
          * 1.序列化并不保存静态变量
          * 先序列化对象然后修改静态变量值

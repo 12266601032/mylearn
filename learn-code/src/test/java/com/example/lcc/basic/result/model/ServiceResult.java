@@ -1,4 +1,4 @@
-package com.example.lcc.basic.result;
+package com.example.lcc.basic.result.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * @date 2018/3/23
  */
-public class ServiceResult<T extends Serializable, C extends Serializable> implements Serializable {
+public class ServiceResult<T, C> implements Serializable {
 
     public static final CodeMessage<String> SUCCESS = new DefaultMessage<>("00000000", "success");
 
@@ -14,7 +14,7 @@ public class ServiceResult<T extends Serializable, C extends Serializable> imple
     private CodeMessage<C> message;
     private boolean isSuccess;
 
-    public ServiceResult(T data, boolean isSuccess, CodeMessage<C> message) {
+    ServiceResult(T data, boolean isSuccess, CodeMessage<C> message) {
         this.data = data;
         this.message = message;
         this.isSuccess = isSuccess;
@@ -32,37 +32,37 @@ public class ServiceResult<T extends Serializable, C extends Serializable> imple
         return isSuccess;
     }
 
-    public static <D extends Serializable, C extends Serializable> ServiceResultBuilder<D, C> success() {
+    public static <D, C> ServiceResultBuilder<D, C> success() {
         ServiceResultBuilder<D, C> builder = builder();
         return builder.isSuccess(true);
     }
 
-    public static <D extends Serializable, C extends Serializable> ServiceResultBuilder<D, C> success(CodeMessage<C> codeMessage) {
+    public static <D, C> ServiceResultBuilder<D, C> success(CodeMessage<C> codeMessage) {
         ServiceResultBuilder<D, C> builder = builder();
         return builder.isSuccess(true).code(codeMessage.getCode()).message(codeMessage.getMessage());
     }
 
-    public static <D extends Serializable> ServiceResult<D, String> success(D data) {
+    public static <D> ServiceResult<D, String> success(D data) {
         ServiceResultBuilder<D, String> success = success(SUCCESS);
         return success.data(data).build();
     }
 
-    public static <D extends Serializable, C extends Serializable> ServiceResult<D, C> error(CodeMessage<C> codeMessage) {
+    public static <D, C> ServiceResult<D, C> error(CodeMessage<C> codeMessage) {
         ServiceResultBuilder<D, C> builder = builder();
         return builder.isSuccess(false).code(codeMessage.getCode()).message(codeMessage.getMessage()).build();
     }
 
-    public static <D extends Serializable, C extends Serializable> ServiceResultBuilder<D, C> error() {
+    public static <D, C> ServiceResultBuilder<D, C> error() {
         ServiceResultBuilder<D, C> builder = builder();
         return builder.isSuccess(false);
     }
 
 
-    static <D extends Serializable, C extends Serializable> ServiceResultBuilder<D, C> builder() {
+    static <D, C> ServiceResultBuilder<D, C> builder() {
         return new ServiceResultBuilder<>();
     }
 
-    public static class DefaultMessage<C extends Serializable> implements CodeMessage<C> {
+    public static class DefaultMessage<C> implements CodeMessage<C>, java.io.Serializable {
 
         private C code;
         private String message;
@@ -82,16 +82,25 @@ public class ServiceResult<T extends Serializable, C extends Serializable> imple
             return message;
         }
 
+        @Override
+        public String toString() {
+            return "DefaultMessage{" +
+                    "code=" + code +
+                    ", message='" + message + '\'' +
+                    '}';
+        }
     }
 
 
-    public static class ServiceResultBuilder<T extends Serializable, C extends Serializable> {
+    public static class ServiceResultBuilder<T, C> {
 
         private T data;
         private C code;
         private String message;
         private boolean isSuccess;
 
+        ServiceResultBuilder() { //package private
+        }
 
         public ServiceResultBuilder<T, C> data(T data) {
             this.data = data;
@@ -118,5 +127,14 @@ public class ServiceResult<T extends Serializable, C extends Serializable> imple
             Objects.requireNonNull(code, "message");
             return new ServiceResult<>(data, isSuccess, new DefaultMessage<>(code, message));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceResult{" +
+                "data=" + data +
+                ", message=" + message +
+                ", isSuccess=" + isSuccess +
+                '}';
     }
 }
