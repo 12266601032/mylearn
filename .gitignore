@@ -51,5 +51,4 @@ captures/
 target/**
 
 .svn
-*.jar
 **/classes/**
