@@ -131,36 +131,45 @@ public class SortDemo {
     public void testSort() throws Exception {
         System.out.println(Arrays.toString(BubbleSort.sort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
         System.out.println(Arrays.toString(BubbleSort.optimizedSort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
+        System.out.println(Arrays.toString(CocktailSort.sort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
+        System.out.println(Arrays.toString(CocktailSort.optimizedSort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
+        System.out.println(Arrays.toString(OddEvenSort.sort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
     }
 
     /**
      * 冒泡排序
-     * 3 2 5 9 2 6  array
-     * 第一轮
-     * 2 3 5 9 2 6 比较 [0] > [1] true then swap
-     * 2 3 5 9 2 6 比较 [1] > [2] false
-     * 2 3 5 9 2 6 比较 [2] > [3] false
-     * 2 3 5 2 9 6 比较 [3] > [4] true then swap
-     * 2 3 5 2 6 9 比较 [4] > [5] true then swap
-     * 第二轮
-     * 2 3 5 2 6 9 比较 [0] > [1] false
-     * 2 3 5 2 6 9 比较 [1] > [2] false
-     * 2 3 2 5 6 9 比较 [2] > [3] true then swap
-     * 2 3 2 5 6 9 比较 [3] > [4] true then swap
-     * 第三轮
-     * 2 3 2 5 6 9 比较 [0] > [1] false
-     * 2 2 3 5 6 9 比较 [1] > [2] true then swap
-     * 2 2 3 5 6 9 比较 [2] > [3] false
-     * 第四轮
-     * 2 2 3 5 6 9 比较 [0] > [1] false
-     * 2 2 3 5 6 9 比较 [1] > [2] false
-     * 第五轮
-     * 2 2 3 5 6 9 比较 [0] > [1] false
-     * 每轮将最大的冒泡到最后面
+     * 每轮将最大的转移到最后面
      * 冒泡排序对 n 个元素需要 O(n^2) 的比较次数，且可以原地排序。
      * 冒泡排序仅适用于对于含有较少元素的数列进行排序。
      */
     static class BubbleSort {
+        /**
+         * 冒泡排序
+         * 3 2 5 9 2 6  array
+         * 第一轮
+         * 2 3 5 9 2 6 比较 [0] > [1] true then swap
+         * 2 3 5 9 2 6 比较 [1] > [2] false
+         * 2 3 5 9 2 6 比较 [2] > [3] false
+         * 2 3 5 2 9 6 比较 [3] > [4] true then swap
+         * 2 3 5 2 6 9 比较 [4] > [5] true then swap
+         * 第二轮
+         * 2 3 5 2 6 9 比较 [0] > [1] false
+         * 2 3 5 2 6 9 比较 [1] > [2] false
+         * 2 3 2 5 6 9 比较 [2] > [3] true then swap
+         * 2 3 2 5 6 9 比较 [3] > [4] true then swap
+         * 第三轮
+         * 2 3 2 5 6 9 比较 [0] > [1] false
+         * 2 2 3 5 6 9 比较 [1] > [2] true then swap
+         * 2 2 3 5 6 9 比较 [2] > [3] false
+         * 第四轮
+         * 2 2 3 5 6 9 比较 [0] > [1] false
+         * 2 2 3 5 6 9 比较 [1] > [2] false
+         * 第五轮
+         * 2 2 3 5 6 9 比较 [0] > [1] false
+         *
+         * @param array
+         * @return
+         */
         static int[] sort(int[] array) {
             for (int i = 0; i < array.length; i++) {
                 for (int j = 0; j < array.length - 1 - i; j++) {
@@ -220,7 +229,118 @@ public class SortDemo {
      * 最差空间复杂度 О(1)
      */
     static class CocktailSort {
+        /**
+         * 每次一轮将最大的移动到最后面然后将最小的移动到最前面
+         * 例如：
+         * 7 8 6 9 2 4
+         * 第一轮
+         * 7 8 6 9 2 4 [0]>[1]? false
+         * 7 6 8 9 2 4 [1]>[2]? true then swap
+         * 7 6 8 9 2 4 [2]>[3]? false
+         * 7 6 8 2 9 4 [3]>[4]? true then swap
+         * 7 6 8 2 4 9 [4]>[5]? true then swap
+         * <p>
+         * 7 6 8 2 4 9 [3]>[4]? false
+         * 7 6 2 8 4 9 [2]>[3]? true then swap
+         * 7 2 6 8 4 9 [1]>[2]? true then swap
+         * 2 7 6 8 4 9 [0]>[1]? true then swap
+         * 第二轮
+         * 2 6 7 8 4 9 [1]>[2]? true then swap
+         * 2 6 7 8 4 9 [2]>[3]? false
+         * 2 6 7 4 8 9 [3]>[4]? true then swap
+         * <p>
+         * 2 6 4 7 8 9 [2]>[3]? true then swap
+         * 2 4 6 7 8 9 [2]>[3]? true then swap
+         * 第三轮
+         * 无
+         *
+         * @param array
+         */
+        static int[] sort(int[] array) {
+            for (int i = 0; i < array.length / 2; i++) {
+                // move the larger to right side 将大数移动到 右侧
+                for (int j = i; j + 1 < array.length - i; j++) {
+                    if (array[j] > array[j + 1]) {
+                        swap(array, j, j + 1);
+                    }
+                }
+                // move the smaller to left side 将小数移动到左侧
+                for (int j = array.length - i - 1; j > i; j--) {
+                    if (array[j - 1] > array[j]) {
+                        swap(array, j - 1, j);
+                    }
+                }
+            }
+            return array;
+        }
 
+        /**
+         * 优化版
+         *
+         * @param array
+         * @return
+         */
+        static int[] optimizedSort(int[] array) {
+
+            boolean swapped = false;
+            int start = 0;
+            int end = array.length - 1;
+            do {
+                swapped = false;
+                // move the larger to right side 将大数移动到 右侧
+                for (int i = start; i < end; i++) {
+                    if (array[i] > array[i + 1]) {
+                        swap(array, i, i + 1);
+                        swapped = true;
+                    }
+                }
+                if (!swapped) { //说明数组已经排序好的了
+                    break;
+                }
+                swapped = false;
+                end = end - 1; //最后一个元素是最大的了 因此下轮比较不需要考虑这个了
+                // move the smaller to left side 将小数移动到左侧
+                for (int j = end; j > start; j--) {
+                    if (array[j - 1] > array[j]) {
+                        swap(array, j - 1, j);
+                        swapped = true;
+                    }
+                }
+                start = start + 1; //经过上面的处理 start位置的元素为最小的元素了 因此下轮比较直接从start + 1开始
+            } while (swapped);
+            return array;
+        }
+    }
+
+    /**
+     * 奇偶排序通过比较数组中相邻的（奇-偶）位置元素，如果该奇偶元素对是错误的顺序（前者大于后者），则交换元素。
+     * 然后再针对所有的（偶-奇）位置元素进行比较。如此交替进行下去。
+     * 最差时间复杂度 O(n2)
+     * 平均时间复杂度 O(n2)
+     * 最优时间复杂度 O(n)
+     * 最差空间复杂度 О(1)
+     */
+    static class OddEvenSort {
+        static int[] sort(int[] array) {
+            for (int i = 0; i < array.length; i++) {
+                if (i % 2 > 0) {
+                    //偶数
+                    for (int j = 2; j < array.length; j += 2) {
+                        if (array[j] < array[j - 1]) {
+                            swap(array, j, j - 1);
+                        }
+                    }
+                } else {
+                    //奇数
+                    for (int j = 1; j < array.length; j += 2) {
+                        if (array[j] < array[j - 1]) {
+                            swap(array, j, j - 1);
+                        }
+                    }
+                }
+            }
+            return array;
+        }
     }
 
     static void swap(int[] array, int i, int j) {
