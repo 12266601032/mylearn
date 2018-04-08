@@ -3,6 +3,7 @@ package com.example.lcc.basic.java.reflect;
 import org.junit.Test;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
