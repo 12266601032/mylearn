@@ -11,6 +11,7 @@ public class SwapValue {
     public void swap() {
         /**
          * 方法一、中间变量
+         * 推荐  可读性强 而且安全
          */
         int a = 2, b = 1;
         int c = a;
@@ -19,6 +20,7 @@ public class SwapValue {
 
         /**
          * 方法二、加减法
+         * 有溢出风险
          */
         int a1 = 2, b1 = 1;
         a1 = a1 + b1;
@@ -27,6 +29,7 @@ public class SwapValue {
         /**
          * 方法三、乘除法
          * 注意 分子不能为 0
+         * 有溢出风险
          */
         int a2 = 2, b2 = 2;
         a2 = a2 * b2;
@@ -35,6 +38,7 @@ public class SwapValue {
 
         /**
          * 方法四、异或法
+         * 可读性差
          */
         int a3 = 2, b3 = 2;
         a3 = a3 ^ b3;
