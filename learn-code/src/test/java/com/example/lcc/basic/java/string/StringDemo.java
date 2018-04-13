@@ -132,6 +132,27 @@ public class StringDemo {
 
     }
 
+    /**
+     *
+     * configClass3
+     * ------------
+     * configClass2
+     * ------------
+     * configClass1
+     * ------------
+     *
+     *
+     *
+     *
+     *
+     */
+    @Test
+    public void testSub() {
+        String type = "101";
+
+        System.out.println(type == null || type.length() < 2 ? "01" : type.substring(type.length() - 2, type.length()));
+    }
+
     private Supplier<? extends RuntimeException> createNullExcp(String s) {
         return () -> new NullPointerException(s);
     }

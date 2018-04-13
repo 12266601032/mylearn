@@ -39,5 +39,6 @@ public class InitialDemo {
     public static void main(String[] args) {
         System.out.println("指定main方法");
         new InitialDemo();
+        System.out.println(null instanceof InitialDemo);
     }
 }
