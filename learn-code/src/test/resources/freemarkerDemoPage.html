@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Insert title here</title>
+</head>
+<body>
+
+<!-- 直接输出变量  其中‘！’为如果属性不存在的默认值-->
+<p>${hello!"the default value"}</p>
+
+<!-- 内建函数 -->
+<!-- string 内建函数 跟java的string中的substring一样含头不含尾 -->
+<p>${'abc'?substring(1)}</p>
+<p>${'abc'?substring(1,3)}</p>
+<!-- 首字母大写 户忽略空格特殊符号匹配到第一个字符进行大写转换 -->
+<p>${" green mouse"?cap_first}</p>
+<!-- 首字母小写，作用与上面相反 -->
+<p>${" Green mouse"?uncap_first}</p>
+<!-- 所有单词首字母大写 -->
+<p>${" green mouse"?capitalize}</p>
+<!-- date， time， datetime 日期，时间，时间日期
+     字符串转日期
+-->
+<#assign test1 = "10/25/1995"?date("MM/dd/yyyy") />
+<#assign test2 = "15:05:30"?time("HH:mm:ss")/>
+<!-- 这种带上午、下午的日期格式，由于是根据Locale来parse的因此是中文要用中文表示否则会解析报错  -->
+<#assign test3 = "1995-10-25 03:05 上午"?datetime("yyyy-MM-dd hh:mm a")/>
+<!-- 输出的日期格式为本地化的输出 -->
+<p>
+    ${test1} <br/>
+    ${test2} <br/>
+    ${test3} <br/>
+</p>
+
+<!-- 三目运算 -->
+<p>${('abc'?ends_with("bc"))?string("true","false")}</p>
+<p>${('abc'?ends_with("bce"))?string("true","false")}</p>
+
+<!-- 遍历 -->
+<!-- 这种方式会比较时分秒 -->
+<#if .now?date lt repayDay?date>${.now?date} is less than ${repayDay?date}</#if>
+<!-- 这样比较才是年月日比较  -->
+<#if (.now?string('yyyyMMdd'))?number lt (repayDay?string('yyyyMMdd'))?number>${.now?date} is less than
+    ${repayDay?date}
+</#if>
+<p>${.now}</p>
+
+</body>
+</html>

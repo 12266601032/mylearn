@@ -3,6 +3,8 @@ package com.example.lcc.algorithm.sort;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * <table cellpadding=5 border="1" cellspacing="0">
@@ -129,11 +131,23 @@ public class SortDemo {
 
     @Test
     public void testSort() throws Exception {
-        System.out.println(Arrays.toString(BubbleSort.sort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
-        System.out.println(Arrays.toString(BubbleSort.optimizedSort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
-        System.out.println(Arrays.toString(CocktailSort.sort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
-        System.out.println(Arrays.toString(CocktailSort.optimizedSort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
-        System.out.println(Arrays.toString(OddEvenSort.sort(new int[]{9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8})));
+        int[] unsortArray = {9, 8, 7, 4, 1, 3, 0, 2, 1, 4, 9, 8};
+        Collections.shuffle(Arrays.asList(unsortArray));
+        System.out.println(Arrays.toString(BubbleSort.sort(unsortArray)));
+        Collections.shuffle(Arrays.asList(unsortArray));
+        System.out.println(Arrays.toString(BubbleSort.optimizedSort(unsortArray)));
+        Collections.shuffle(Arrays.asList(unsortArray));
+        System.out.println(Arrays.toString(CocktailSort.sort(unsortArray)));
+        Collections.shuffle(Arrays.asList(unsortArray));
+        System.out.println(Arrays.toString(CocktailSort.optimizedSort(unsortArray)));
+        Collections.shuffle(Arrays.asList(unsortArray));
+        System.out.println(Arrays.toString(OddEvenSort.sort(unsortArray)));
+        Collections.shuffle(Arrays.asList(unsortArray));
+        QuickSort.sort(unsortArray, 0, unsortArray.length - 1);
+        System.out.println(Arrays.toString(unsortArray));
+        Collections.shuffle(Arrays.asList(unsortArray));
+        QuickSort.randomPartition(unsortArray, 0, unsortArray.length - 1);
+        System.out.println(Arrays.toString(unsortArray));
     }
 
     /**
@@ -343,10 +357,138 @@ public class SortDemo {
         }
     }
 
+    /**
+     * 快速排序使用分治法（Divide-and-Conquer）策略将一个数列分成两个子数列并使用递归来处理。
+     * <p>
+     * 比如有如下这个 10 个数字，[13, 81, 92, 42, 65, 31, 57, 26, 75, 0]。
+     * <p>
+     * 随机选择一个数作为中间的元素，例如选择 65。
+     * 这样数组就被 65 分成了两部分，左边的都小于 65，右边的都大于 65。
+     * 然后分别对左右两边的子数组按照相同的方式进行排序，并最终排序完毕
+     */
+    static class QuickSort {
+
+        /**
+         * 选择一个数作为中心点，然后将数列中的数比它小的放左边 比它大的放右边
+         *
+         * @param array 需要进行排序的数组
+         * @param left  数组最左边元素
+         * @param right 数组最右边元素
+         */
+        static void sort(int[] array, int left, int right) {
+            if (!(left < right)) { //如果left == right 说明已不可再分，结束
+                return;
+            }
+
+            //所有array[pivotIndex] 左边的元素都比它小 右边的元素都比它大
+            int pivotIndex = partition(array, left, right);
+
+            //递归处理
+            //由于主元 左边 都比它小右边都比它大，因此主元已经处理 最终的位置，不需要参数下轮
+            sort(array, left, pivotIndex - 1);
+            sort(array, pivotIndex + 1, right);
+        }
+
+        /**
+         * 选择一个数字 对数列进行分区
+         *
+         * @param array 需要进行排序的数组
+         * @param left  数组最左边元素
+         * @param right 数组最右边元素
+         * @return 分区后哨兵的角标
+         */
+        static int partition(int[] array, int left, int right) {
+            int pivotIndex = right;
+            //哨兵，以它为中心，小的放左边 大的去右边
+            int sentinel = array[right];
+            //需要处理数组的元素为 left ~ right
+            int i = left - 1; //下面是先 ++ 因此这里作 - 1处理
+            for (int j = left; j <= right - 1; j++) {
+                if (array[j] <= sentinel) { //比哨兵小的与最左边的元素交换
+                    i++;
+                    swap(array, i, j);
+                }
+            }
+            //经过上面的循环 会得到一个left ~ i 都是比哨兵小的元素 i + 1 ~ right 为比哨兵大的元素
+            //这里讲 i + 1与哨兵置换
+            swap(array, i + 1, pivotIndex);
+            //返回哨兵所在的角标
+            return i + 1;
+        }
+
+        /**
+         * 利用随机值取pivot 进行快速排序
+         *
+         * @param array
+         * @param left
+         * @param right
+         */
+        static void randomQuickSort(int[] array, int left, int right) {
+            //这里处理逻辑都一样
+            if (!(left < right)) {
+                return;
+            }
+
+            int pivotIndex = randomPartition(array, left, right);
+
+            randomQuickSort(array, left, pivotIndex - 1);
+            randomQuickSort(array, pivotIndex + 1, right);
+        }
+
+        static Random random = new Random();
+
+        private static int randomPartition(int[] array, int left, int right) {
+            int i = left + random.nextInt(right - left);
+            swap(array, i, right); //将通过随机数来选出pivot，并与最右侧的作交换，目的是为了复用上面的partition函数
+            return partition(array, left, right);
+        }
+
+
+
+
+
+
+
+        // ----------------下面是优化版的快速排序---------------------------
+        static void optimizedQuickSort(int [] array, int left , int right){
+            if (!(left < right)) {
+                return; //结束
+            }
+
+
+        }
+
+        /**
+         * 优化版partition的过程
+         * |3 2 8 4 (6) 5 2 6 1|  ----step 1
+         * ---->        <----
+         *
+         * 在于每次循环找出主元左半区的最大值
+         *
+         * @param array
+         * @param left
+         * @param right
+         */
+        static void optimizedPartition(int [] array, int left , int right){
+
+        }
+    }
+
     static void swap(int[] array, int i, int j) {
+        //如果 是 i = j 使用^交换会出问题
+        if (i == j) {
+            return;
+        }
         array[i] = array[i] ^ array[j];
         array[j] = array[i] ^ array[j];
         array[i] = array[i] ^ array[j];
+    }
+
+    public static void main(String[] args) {
+        //FIXME 使用 ^ 作交换不能 元素自身与自身交换
+        int[] ints = {1};
+        swap(ints, 0, 0);
+        System.out.println(Arrays.toString(ints));
     }
 
 }

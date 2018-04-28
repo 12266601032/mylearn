@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.io.File;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Date;
 import java.util.Formatter;
@@ -130,6 +132,21 @@ public class StringDemo {
         Date xxx = Optional.ofNullable((Date) null).orElseThrow(createNullExcp("xxx"));
         System.out.println(xxx);
 
+    }
+
+    @Test
+    public void test2() throws ParseException {
+        System.out.printf("{} array {} %n","a","b"); //不支持这种
+        System.out.printf("%d %n",new Integer(2));
+        System.out.printf("百分比：%s.",new DecimalFormat("0.00%").format(0.1111));
+        System.out.println(new DecimalFormat("0.00%").parse("0.5%"));
+        DecimalFormat decimalFormat = new DecimalFormat("0.00%");
+        decimalFormat.setParseBigDecimal(true);
+
+        System.out.println(decimalFormat.parse("0.500005%"));
+        System.out.println(new BigDecimal("0.00500005"));
+        System.out.println(BigDecimal.valueOf(new DecimalFormat("0.00%").parse("0.5%").doubleValue()));
+        System.out.println(NumberFormat.getPercentInstance().parse("0.05%"));
     }
 
     /**
