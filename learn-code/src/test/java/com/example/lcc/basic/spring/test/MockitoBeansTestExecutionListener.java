@@ -1,5 +1,6 @@
 package com.example.lcc.basic.spring.test;
 
+import com.example.lcc.basic.spring.test.annotation.ImportMockBeans;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.TestContext;
@@ -46,7 +47,41 @@ public class MockitoBeansTestExecutionListener extends AbstractTestExecutionList
                 });
             }
         }
+        externalImports(testContext);
         hasInitialized = true;
+    }
+
+    protected void externalImports(TestContext testContext) {
+        Class<?> testClass = testContext.getTestClass();
+        ImportMockBeans importMockBeans = testClass.getAnnotation(ImportMockBeans.class);
+        List<ImportMockBeans> allImportMockBeans = new ArrayList<>();
+        if (importMockBeans != null) {
+            allImportMockBeans.add(importMockBeans);
+        }
+        Class<?>[] interfaces = testClass.getInterfaces();
+        if (interfaces != null) {
+            for (Class<?> anInterface : interfaces) {
+                ImportMockBeans mockBeansAnnon = anInterface.getAnnotation(ImportMockBeans.class);
+                if (mockBeansAnnon != null) {
+                    allImportMockBeans.add(mockBeansAnnon);
+                }
+            }
+        }
+
+        if (importMockBeans != null) {
+            for (ImportMockBeans importMockBean : allImportMockBeans) {
+                Class<?>[] types = importMockBean.value();
+                for (Class<?> type : types) {
+                    mockBeans.computeIfAbsent(type, mockType -> {
+                        MockBeanWrapper wrapper = new MockBeanWrapper();
+                        wrapper.setMockObject(Mockito.mock(type));
+                        wrapper.setBeanType(type);
+                        wrapper.setBeanName(type.getName());
+                        return wrapper;
+                    });
+                }
+            }
+        }
     }
 
     @Override

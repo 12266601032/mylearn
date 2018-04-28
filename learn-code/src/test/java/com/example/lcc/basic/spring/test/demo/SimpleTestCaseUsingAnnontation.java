@@ -1,5 +1,8 @@
-package com.example.lcc.basic.spring.test;
+package com.example.lcc.basic.spring.test.demo;
 
+import com.example.lcc.basic.spring.test.MockitoBeansPostProcessor;
+import com.example.lcc.basic.spring.test.MockitoBeansTestExecutionListener;
+import com.example.lcc.basic.spring.test.annotation.ImportMockBeans;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +17,14 @@ import static org.mockito.Mockito.doReturn;
 
 
 @TestExecutionListeners({MockitoBeansTestExecutionListener.class})
-@ContextConfiguration(classes = {SimpleTestCase.class})
-@ComponentScan(basePackageClasses = {SimpleTestCase.class})
-public class SimpleTestCase extends AbstractJUnit4SpringContextTests {
+@ContextConfiguration(classes = {SimpleTestCaseUsingAnnontation.class})
+@ComponentScan(basePackageClasses = {SimpleTestCaseUsingAnnontation.class})
+@ImportMockBeans({MessageSupplier.class})
+public class SimpleTestCaseUsingAnnontation extends AbstractJUnit4SpringContextTests {
 
     @Autowired
     private SomeService someService;
-    @Mock
+    @Autowired
     MessageSupplier messageSupplier;
 
 
