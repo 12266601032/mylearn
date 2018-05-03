@@ -52,4 +52,9 @@ public class DateDemo {
         System.out.println(yyyy_MM_dd.format(instance.getTime()));
 
     }
+
+    @Test
+    public void testFormat(){
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(new Date()));
+    }
 }
