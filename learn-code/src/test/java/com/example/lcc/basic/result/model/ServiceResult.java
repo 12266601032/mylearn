@@ -3,12 +3,7 @@ package com.example.lcc.basic.result.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * @date 2018/3/23
- */
 public class ServiceResult<T, C> implements Serializable {
-
-    public static final CodeMessage<String> SUCCESS = new DefaultMessage<>("00000000", "success");
 
     private T data;
     private CodeMessage<C> message;
@@ -32,18 +27,22 @@ public class ServiceResult<T, C> implements Serializable {
         return isSuccess;
     }
 
-    public static <D, C> ServiceResultBuilder<D, C> success() {
-        ServiceResultBuilder<D, C> builder = builder();
+    public static <C> DefaultMessage<C> defaultMessage(C code, String message) {
+        return new DefaultMessage<>(code, message);
+    }
+
+    public static <T, C> ServiceResultBuilder<T, C> success() {
+        ServiceResultBuilder<T, C> builder = builder();
         return builder.isSuccess(true);
     }
 
-    public static <D, C> ServiceResultBuilder<D, C> success(CodeMessage<C> codeMessage) {
-        ServiceResultBuilder<D, C> builder = builder();
+    public static <T, C> ServiceResultBuilder<T, C> success(CodeMessage<C> codeMessage) {
+        ServiceResultBuilder<T, C> builder = builder();
         return builder.isSuccess(true).code(codeMessage.getCode()).message(codeMessage.getMessage());
     }
 
-    public static <D> ServiceResult<D, String> success(D data) {
-        ServiceResultBuilder<D, String> success = success(SUCCESS);
+    public static <T> ServiceResult<T, String> success(T data) {
+        ServiceResultBuilder<T, String> success = success();
         return success.data(data).build();
     }
 
@@ -58,7 +57,7 @@ public class ServiceResult<T, C> implements Serializable {
     }
 
 
-    static <D, C> ServiceResultBuilder<D, C> builder() {
+    private static <D, C> ServiceResultBuilder<D, C> builder() {
         return new ServiceResultBuilder<>();
     }
 
@@ -81,6 +80,7 @@ public class ServiceResult<T, C> implements Serializable {
         public String getMessage() {
             return message;
         }
+
 
         @Override
         public String toString() {

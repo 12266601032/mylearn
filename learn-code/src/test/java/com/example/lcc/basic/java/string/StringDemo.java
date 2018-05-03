@@ -166,7 +166,6 @@ public class StringDemo {
     @Test
     public void testSub() {
         String type = "101";
-
         System.out.println(type == null || type.length() < 2 ? "01" : type.substring(type.length() - 2, type.length()));
     }
 
