@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+</head>
+<body>
+<div id="app1">
+    <!--数据绑定最常见的形式就是使用“Mustache”语法 (双大括号) 的文本插值：
+    Mustache 标签将会被替代为对应数据对象上 msg 属性的值。无论何时，绑定的数据对象上 msg 属性发生了改变，插值处的内容都会更新。-->
+    <span>Message: {{ msg }}</span>
+    <br/>
+    <!--通过v-once指令一次性插值-->
+    <span v-once>这个将不会改变: {{ msg }}</span>
+    <!--原始 HTML 使用v-html 输出html标签只-->
+    <p>Using mustaches: {{ rawHtml }}</p>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    <!--html特性-->
+    <!--Mustache 语法不能作用在 HTML 特性上，遇到这种情况应该使用 v-bind 指令-->
+    <div v-bind:id="dynamicId"></div>
+    <!--在布尔特性的情况下，它们的存在即暗示为 true，v-bind 工作起来略有不同，在这个例子中：null、undefined 或 false，则表示不使用disabled-->
+    <button v-bind:disabled="isButtonDisabled">Button</button>
+    <!--使用 JavaScript 表达式-->
+    {{ number + 1 }}
+
+    {{ ok ? 'YES' : 'NO' }}
+
+    {{ message.split('').reverse().join('') }}
+
+    <!-- 这是语句，不是表达式 -->
+    <!--{{ var a = 1 }}-->
+
+    <!-- 流控制也不会生效，请使用三元表达式 -->
+    <!--{{ if (ok) { return message } }}-->
+
+    <!--指令 指令 (Directives)
+    是带有 v- 前缀的特殊特性。
+    指令特性的值预期是单个 JavaScript 表达式 (v-for 是例外情况，稍后我们再讨论)。
+    指令的职责是，当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM。回顾我们在介绍中看到的例子：
+    -->
+    <p v-if="seen">现在你看到我了</p><!--v-if 指令将根据表达式 seen 的值的true/false来插入/移除 <p> 元素。-->
+    <!--参数
+    一些指令能够接收一个“参数”，在指令名称之后以冒号表示。例如，v-bind 指令可以用于响应式地更新 HTML 特性：-->
+    <a v-bind:href="url">urldemo</a>
+
+    <!--v-on 事件绑定-->
+    <a v-on:click="doSomething" href="javascript:;">doSomething</a>
+    <!--修饰符修饰符 (Modifiers) 是以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。
+    例如，.prevent 修饰符告诉 v-on 指令对于触发的事件调用 event.preventDefault()：-->
+    <form v-on:submit.prevent="onSubmit">
+        <input type="submit" value="submit"/>
+    </form>
+
+    <!--缩写-->
+    <!--v-bind 缩写-->
+    <!-- 完整语法 -->
+    <a v-bind:href="url">url</a>
+    <!-- 缩写 -->
+    <a :href="url">url</a>
+    <!--v-on 缩写-->
+    <!-- 完整语法 -->
+    <a v-on:click="doSomething">doSomething</a>
+    <!-- 缩写 -->
+    <a @click="doSomething">doSomething</a>
+
+</div>
+
+<div id="app2">
+    <!--计算属性和侦听器-->
+    <!--计算属性  基本例子-->
+    <p>Original message: "{{ message }}"</p>
+    <p>Computed reversed message: "{{ reversedMessage }}"</p><!--计算属性有缓存-->
+    <p>Computed reversed message: "{{ reversedMessage }}"</p>
+
+
+    <!--计算属性缓存 vs 方法-->
+    <!--计算属性是基于它们的依赖进行缓存的，依赖不变不会重复调用计算逻辑，计算方法会每次调用，如果依赖不是响应式依赖
+    如Date.now() 计算属性缓存 会缓存第一次计算的结果-->
+    <p>Reversed message: "{{ reversedMessage2() }}"</p><!--计算方法无缓存，会重复调用-->
+    <p>Reversed message: "{{ reversedMessage2() }}"</p>
+    <p>Computed now: "{{ now }}"</p>
+    <p>Computed now: "{{ now }}"</p>
+    <!--我们为什么需要缓存？
+    假设我们有一个性能开销比较大的的计算属性 A，它需要遍历一个巨大的数组并做大量的计算。
+    然后我们可能有其他的计算属性依赖于 A 。
+    如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代。
+    -->
+
+
+</div>
+<!--计算属性 vs 侦听属性-->
+
+
+<!--侦听器-->
+
+<div id="watch-example">
+    <p>
+        Ask a yes/no question:
+        <input v-model="question">
+    </p>
+    <p>{{ answer }}</p>
+</div>
+
+<div id="app3">
+    <p>{{ fullName }}</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script>
+
+    var vm = new Vue({
+        el: '#app1',
+        data: {
+            msg: '消息体',
+            rawHtml: '<span style="color: red">This should be red.</span>',
+            dynamicId: '1213',
+            isButtonDisabled: null,
+            number: 666,
+            ok: true,
+            seen: true,
+            message: "abcdefg",
+            url: 'https://www.baidu.com', //自动判断相对路径还是绝对路径
+            doSomething: function () {
+                alert("doSomething");
+            },
+            onSubmit: function () {
+                alert("prevent function");
+            }
+        }
+    });
+
+
+    var vm2 = new Vue({
+        el: '#app2',
+        data: {
+            message: 'Hello'
+        },
+        // 计算缓存
+        computed: {
+            //带计算属性的 getter
+            reversedMessage: function () {
+                alert("compute cached field.");
+                // `this` 指向 vm 实例
+                /*你可以打开浏览器的控制台，自行修改例子中的 vm。vm.reversedMessage 的值始终取决于 vm.message 的值。*/
+                return this.message.split('').reverse().join('')
+            },
+            now: function () {
+                return Date.now();
+            }
+        },
+        // 在组件中 (计算方法)
+        methods: {
+            reversedMessage2: function () {
+                alert("compute method.");
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+
+    /*计算属性 vs 侦听属性*/
+    var vm3 = new Vue({
+        el: '#app3',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: 'Foo Bar'
+        },
+        watch: {
+            firstName: function (val) {
+                this.fullName = val + ' ' + this.lastName
+            },
+            lastName: function (val) {
+                this.fullName = this.firstName + ' ' + val
+            }
+        }
+    })
+    /*上面代码是命令式且重复的。将它与计算属性的版本进行比较：（显然下面的方式更优雅）*/
+    /*var vm = new Vue({
+         el: '#demo',
+         data: {
+             firstName: 'Foo',
+             lastName: 'Bar'
+         },
+         computed: {
+             fullName: function () {
+                return this.firstName + ' ' + this.lastName
+             }
+         }
+     })*/
+
+
+    /*计算属性的 setter */// ...
+    /*计算属性默认只有 getter ，不过在需要时你也可以提供一个 setter ：*/
+    /*computed: {
+        fullName: {
+            // getter
+            get: function () {
+                return this.firstName + ' ' + this.lastName
+            },
+            // setter
+            set: function (newValue) {
+                var names = newValue.split(' ')
+                this.firstName = names[0]
+                this.lastName = names[names.length - 1]
+            }
+        }
+    }*/
+    //现在再运行 vm.fullName = 'John Doe' 时，setter 会被调用，vm.firstName 和 vm.lastName 也会相应地被更新。
+
+
+    var watchExampleVM = new Vue({
+        el: '#watch-example',
+        data: {
+            question: '',
+            answer: 'I cannot give you an answer until you ask a question!'
+        },
+        watch: {
+            // 如果 `question` 发生改变，这个函数就会运行
+            question: function (newQuestion, oldQuestion) {
+                this.answer = 'Waiting for you to stop typing...'
+                this.getAnswer()
+            }
+        },
+        methods: {
+            // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+            // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+            // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+            // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+            // 请参考：https://lodash.com/docs#debounce
+            getAnswer: _.debounce(
+                    function () {
+                        if (this.question.indexOf('?') === -1) {
+                            this.answer = 'Questions usually contain a question mark. ;-)'
+                            return
+                        }
+                        this.answer = 'Thinking...'
+                        var vm = this
+                        axios.get('https://yesno.wtf/api')
+                                .then(function (response) {
+                                    vm.answer = _.capitalize(response.data.answer)
+                                })
+                                .catch(function (error) {
+                                    vm.answer = 'Error! Could not reach the API. ' + error
+                                })
+                    },
+                    // 这是我们为判定用户停止输入等待的毫秒数
+                    500
+            )
+        }
+    })
+    /*除了 watch 选项之外，您还可以使用命令式的 vm.$watch API。*/
+</script>
+</body>
+</html>
