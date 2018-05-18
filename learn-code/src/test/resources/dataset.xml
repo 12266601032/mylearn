@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+<dataset>
+    <table name="company">
+        <column>id</column>
+        <column>name</column>
+        <column>parent_id</column>
+        <row>
+            <value>1</value>
+            <value>XX公司</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>XX子公司</value>
+            <value>1</value>
+        </row>
+    </table>
+</dataset>

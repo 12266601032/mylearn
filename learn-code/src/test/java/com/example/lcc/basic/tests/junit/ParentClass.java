@@ -1,4 +1,4 @@
-package com.example.lcc.basic.junit;
+package com.example.lcc.basic.tests.junit;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
