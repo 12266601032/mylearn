@@ -46,9 +46,9 @@ public class SpringAopDemo {
         proxyFactory.addAdvice(new MethodInterceptor() {
             @Override
             public Object invoke(MethodInvocation invocation) throws Throwable {
-                System.out.println("拦截环绕通知-前");
+                System.out.println("环绕通知-前");
                 Object retVal = invocation.proceed();
-                System.out.println("拦截环绕通知-后");
+                System.out.println("环绕通知-后");
                 return retVal;
             }
         });
