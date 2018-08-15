@@ -38,7 +38,7 @@
         <jedis.version>2.9.0</jedis.version>
         <httpclient.version>4.5.5</httpclient.version>
         <freemarker.version>2.3.26-incubating</freemarker.version>
-        <mockito.version>1.9.5</mockito.version>
+        <mockito.version>2.21.0</mockito.version>
         <dbunit.version>2.5.4</dbunit.version>
 
         <local.version>${project.version}</local.version>

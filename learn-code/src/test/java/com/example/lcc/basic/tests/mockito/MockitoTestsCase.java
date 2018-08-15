@@ -6,8 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.stubbing.VoidMethodStubbableImpl;
-import org.mockito.stubbing.VoidMethodStubbable;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
