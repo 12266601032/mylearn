@@ -1,6 +1,7 @@
 package com.example.lcc.basic.spring;
 
 import org.junit.Test;
+import org.springframework.core.io.support.SpringFactoriesLoader;
 
 /**
  * @date 2018/4/9
@@ -8,7 +9,6 @@ import org.junit.Test;
 public class DeduceMainClass {
 
     public static void main(String[] args) {
-
     }
 
     @Test
