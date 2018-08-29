@@ -13,6 +13,7 @@ import com.google.inject.name.Names;
 import org.junit.Test;
 
 import javax.inject.Inject;
+import java.nio.file.*;
 import java.util.Map;
 
 /**
@@ -40,5 +41,6 @@ public class StorageClient {
         injector.injectMembers(this);
         storage.store("11",new Data());
         s.store("11",new Data());
+
     }
 }
