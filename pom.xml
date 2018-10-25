@@ -19,6 +19,7 @@
     <module>learn-google-utils</module>
     <module>learn-scratches</module>
     <module>learn-pattern</module>
+    <module>learn-maven-plugin</module>
   </modules>
 
   <properties>
@@ -38,7 +39,7 @@
     <joda.version>2.5</joda.version>
     <slf4j.version>1.7.21</slf4j.version>
     <logback.version>1.1.7</logback.version>
-    <spring.version>4.2.5.RELEASE</spring.version>
+    <spring.boot.version>1.5.17.RELEASE</spring.boot.version>
     <junit.version>4.12</junit.version>
     <lombok.version>1.18.2</lombok.version>
     <fastjson.version>1.2.28</fastjson.version>
@@ -58,6 +59,14 @@
   </properties>
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <!-- Import dependency management from Spring Boot -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.freemarker</groupId>
         <artifactId>freemarker</artifactId>
@@ -104,23 +113,12 @@
         <artifactId>fastjson</artifactId>
         <version>${fastjson.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>${spring.version}</version>
-      </dependency>
 
       <!-- junit测试类 -->
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>${spring.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -160,14 +158,6 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>

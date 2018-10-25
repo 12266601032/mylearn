@@ -107,6 +107,11 @@ public class Application {
         }
 
         @Override
+        public boolean requiresDestruction(Object o) {
+            return false;
+        }
+
+        @Override
         public Class<?> predictBeanType(Class<?> beanClass, String beanName) throws BeansException {
             return null;
         }

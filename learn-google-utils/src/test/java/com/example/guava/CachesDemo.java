@@ -1,6 +1,7 @@
 package com.example.guava;
 
 import com.google.common.cache.*;
+import com.google.common.util.concurrent.RateLimiter;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -24,6 +25,7 @@ public class CachesDemo {
 
         cache.put("aaa","cxxxx");
         System.out.println(cache.getIfPresent("aaa"));
+
 
     }
 }

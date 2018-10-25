@@ -1,6 +1,6 @@
 package com.example.spring.factory;
 
-import com.example.lcc.basic.guava.ObjectDemo;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.ObjectFactory;
@@ -11,8 +11,6 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 @Configuration
 public class Application {

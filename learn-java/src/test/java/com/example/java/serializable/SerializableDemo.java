@@ -1,11 +1,13 @@
 package com.example.java.serializable;
 
-import com.example.lcc.basic.result.model.ServiceResult;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 import org.junit.Test;
-
-import java.io.*;
-import java.util.Date;
 
 /**
  * @date 2018/3/23
@@ -37,7 +39,7 @@ public class SerializableDemo {
         //写入单例对象
         objectOutputStream.writeObject(instance);
         objectOutputStream.writeObject(innerSingleInstance);
-        objectOutputStream.writeObject(ServiceResult.success("service"));
+        objectOutputStream.writeObject(new Object());
         objectOutputStream.close();
 
         Person.staticField = "修改了的静态变量";
