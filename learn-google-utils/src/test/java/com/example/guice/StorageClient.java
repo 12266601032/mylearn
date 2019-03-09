@@ -17,7 +17,7 @@ import javax.inject.Inject;
 public class StorageClient {
 
     @Inject  //表示是需要注入的成员
-    @Named("file") //会根据Key.get(Storage.clazz, Names.named("database")) 来注入
+    @Named("field") //会根据Key.get(Storage.clazz, Names.named("database")) 来注入
     private Storage s;
 
 

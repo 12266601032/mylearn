@@ -14,7 +14,7 @@ public class StorageModule implements Module {
     @Override
     public void configure(Binder binder) {
         binder.bind(Storage.class)
-                .annotatedWith(Names.named("file"))
+                .annotatedWith(Names.named("field"))
                 .to(FileStorage.class)
                 .in(Scopes.SINGLETON);
         binder.bind(Storage.class)

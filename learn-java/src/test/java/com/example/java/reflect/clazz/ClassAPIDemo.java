@@ -17,4 +17,9 @@ public class ClassAPIDemo {
         System.out.println(Map.class.isAssignableFrom(HashMap.class)); //true
         System.out.println(Enum.class.isAssignableFrom(RoundingMode.class));//true
     }
+
+    @Test
+    public void getName() {
+        System.out.println(ClassAPIDemo.class.getSimpleName());
+    }
 }

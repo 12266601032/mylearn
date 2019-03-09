@@ -52,12 +52,12 @@ public class JNDIDemo {
          */
         Hashtable<String, String> env = new Hashtable<>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, RefFSContextFactory.class.getName());
-        //env.put(Context.PROVIDER_URL, "file:/e:/sample");
+        //env.put(Context.PROVIDER_URL, "field:/e:/sample");
         Context context = new InitialContext(env);
 
 
         //context.rebind("DBService", new ReferenceableObj());
-        System.out.println(context.lookup("file:/e:/sample/DBService"));
+        System.out.println(context.lookup("field:/e:/sample/DBService"));
         context.close();
     }
 

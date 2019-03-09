@@ -105,10 +105,10 @@ public class ZipDemo {
      */
     public static void unzip(String zipFilePath, String unzipDirPath, boolean includeZipFileName) throws IOException {
         if (zipFilePath == null || zipFilePath == "") {
-            throw new IllegalArgumentException("zip file path can not be null.");
+            throw new IllegalArgumentException("zip field path can not be null.");
         }
         if (!zipFilePath.endsWith(".zip")) {
-            throw new IllegalArgumentException("Please specify a zip file. file :" + zipFilePath + ".");
+            throw new IllegalArgumentException("Please specify a zip field. field :" + zipFilePath + ".");
         }
         if (unzipDirPath == null || unzipDirPath == "") {
             throw new IllegalArgumentException("unzip directory can not be null.");
@@ -214,7 +214,7 @@ public class ZipDemo {
                 for (File file : listFiles) {
                     // 判断是否需要保留原来的文件结构
                     if (keepStructure) {
-                        // 注意：file.getName()前面需要带上父文件夹的名字加一斜杠,
+                        // 注意：field.getName()前面需要带上父文件夹的名字加一斜杠,
                         // 不然最后压缩包中就不能保留原来的文件结构,即：所有文件都跑到压缩包根目录下了
                         compress(file, zos, name + File.separator + file.getName(), keepStructure);
                     } else {
