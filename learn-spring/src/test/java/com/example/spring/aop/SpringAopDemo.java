@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.aop.TargetClassAware;
+import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.aop.framework.ProxyFactory;
@@ -60,9 +61,45 @@ public class SpringAopDemo {
 
     }
 
+    @Test
+    public void targetSource() {
+        Say say = (Say) ProxyFactory.getProxy(new SayTargetObjectSource());
+        say.doSay();
+    }
+
     interface Say {
         void doSay();
     }
+
+    static class SayTargetObjectSource implements TargetSource {
+
+        @Override
+        public Class<?> getTargetClass() {
+            return Say.class;
+        }
+
+        @Override
+        public boolean isStatic() {
+            return false;
+        }
+
+        @Override
+        public Object getTarget() throws Exception {
+            return new Say() {
+                @Override
+                public void doSay() {
+                    System.out.println("2222");
+                }
+            };
+        }
+
+        @Override
+        public void releaseTarget(Object target) throws Exception {
+
+        }
+    }
+
+
 
     static class TargetObject implements Say {
         public void doSay() {
