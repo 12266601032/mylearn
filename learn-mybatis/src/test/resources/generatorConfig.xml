@@ -22,7 +22,7 @@
 
 <generatorConfiguration>
   <properties resource="database.properties"/>
-<classPathEntry location="C:\Users\baiwang-132\.m2\repository\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar"/>
+<classPathEntry location="mysql-connector-java-5.1.29.jar"/>
 
   <context id="simple" targetRuntime="MyBatis3DynamicSql">
 
