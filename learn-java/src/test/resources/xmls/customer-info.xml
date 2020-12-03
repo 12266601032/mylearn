@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<data>
+  <customer>
+    <!--  XML Comment  -->
+    123
+    <firstname>Joe</firstname>
+    <lastname>CDATAPrefix<![CDATA[Doe]]>CDATASuffix</lastname>
+    <address type="primary">
+      <ref id="55355"/>
+    </address>
+    <address type="secondary">
+      <ref id="77889"/>
+    </address>
+  </customer>
+  <address id="55355">
+    <street>123 Main</street>
+    <city>San Francisco</city>
+    <state>CA</state>
+    <postalcode>94123</postalcode>
+    <country>USA</country>
+    <phone type="cell">
+      <area>415</area>
+      <prefix>555</prefix>
+      <number>1234</number>
+    </phone>
+    <phone type="home">
+      <area>415</area>
+      <prefix>555</prefix>
+      <number>5678</number>
+    </phone>
+  </address>
+  <address id="77889">
+    <company>ThoughtWorks</company>
+    <street>410 Townsend</street>
+    <city>San Francisco</city>
+    <state>CA</state>
+    <postalcode>94107</postalcode>
+    <country>USA</country>
+  </address>
+</data>

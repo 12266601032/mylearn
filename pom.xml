@@ -22,6 +22,8 @@
     <module>learn-maven-plugin</module>
     <module>learn-mybatis</module>
     <module>learn-poi</module>
+    <module>learn-groovy</module>
+    <module>learn-metrics</module>
   </modules>
 
   <properties>

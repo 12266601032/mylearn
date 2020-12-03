@@ -30,12 +30,15 @@ import org.slf4j.LoggerFactory;
  */
 public class JavaCompilerDemo {
 
+  public static void main(String[] args) throws ClassNotFoundException {
+    new TestDynamicCompiler().compileSourceCode();
+  }
 
   public static class TestDynamicCompiler {
 
 
     @Test
-    public void name() throws ClassNotFoundException {
+    public void compileSourceCode() throws ClassNotFoundException {
       Class<?> aClass = TestDynamicCompiler
           .compile(
               "package com.example.javax.tools;\n"
@@ -111,12 +114,12 @@ public class JavaCompilerDemo {
       private ByteArrayOutputStream outPutStream;
 
       public CubeJavaObject(String qualified, String code) {
-        super(URI.create("string:///" + qualified + Kind.SOURCE.extension), Kind.SOURCE);
+        super(URI.create("string:///" + qualified.replace('.', '/') + Kind.SOURCE.extension), Kind.SOURCE);
         this.code = code;
       }
 
       public CubeJavaObject(String qualified, Kind kind) {
-        super(URI.create("string:///" + qualified + kind.extension), kind);
+        super(URI.create("string:///" + qualified.replace('.', '/') + kind.extension), kind);
       }
 
       @Override
