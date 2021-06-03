@@ -50,7 +50,7 @@
     <rabbitmq.version>3.6.5</rabbitmq.version>
     <lyra.version>0.5.2</lyra.version>
     <jedis.version>2.9.0</jedis.version>
-    <httpclient.version>4.5.5</httpclient.version>
+    <httpclient.version>4.5.13</httpclient.version>
     <freemarker.version>2.3.26-incubating</freemarker.version>
     <mockito.version>2.21.0</mockito.version>
     <dbunit.version>2.5.4</dbunit.version>
