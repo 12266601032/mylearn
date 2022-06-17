@@ -46,7 +46,7 @@
     <spring.boot.version>1.5.17.RELEASE</spring.boot.version>
     <junit.version>4.12</junit.version>
     <lombok.version>1.18.2</lombok.version>
-    <fastjson.version>1.2.28</fastjson.version>
+    <fastjson.version>1.2.83</fastjson.version>
     <rabbitmq.version>3.6.5</rabbitmq.version>
     <lyra.version>0.5.2</lyra.version>
     <jedis.version>2.9.0</jedis.version>
